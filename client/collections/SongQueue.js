@@ -8,7 +8,7 @@ var SongQueue = Songs.extend({
         this.playFirst();
     }, this);
 
-    this.on('ended', function(){
+    this.on('dequeue', function(){
       this.shift();
       if(this.models.length !== 0)
         this.playFirst();

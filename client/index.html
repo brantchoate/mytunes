@@ -14,6 +14,8 @@
     <script src="collections/SongQueue.js"></script>
     <script src="models/AppModel.js"></script>
 
+    <script src="views/SongQueueView.js"></script>
+    <script src="views/SongQueueEntryView.js"></script>
     <script src="views/PlayerView.js"></script>
     <script src="views/LibraryView.js"></script>
     <script src="views/LibraryEntryView.js"></script>
@@ -22,8 +24,27 @@
     <script>
       $(function(){
         // set up model objects
-        var library = new Songs(songData);
-        var app = new AppModel({library: library});
+        var cachedLibrary = JSON.parse(window.localStorage.getItem('library'));
+        var cachedQueue = JSON.parse(window.localStorage.getItem('queue'));
+        console.log(cachedLibrary, 'library');
+        console.log(cachedQueue, 'queue');
+
+        if(cachedLibrary !== null){
+            var library = new Songs(cachedLibrary);
+        }
+        else{
+            console.log('not here');
+            var library = new Songs(songData);
+        }
+        //console.log(cachedSongData);
+        //console.log(window.localStorage.getItem('queue'));
+        // debugger;
+         var app = new AppModel({library: library});
+        // if(!window.localStorage.getItem('library')){
+        //     var app = new AppModel({library: JSON.parse(window.localStorage.getItem('library'))});
+        // }else {
+
+        // }
 
         // build a view for the top level of the whole app
         var appView = new AppView({model: app});
